@@ -12,9 +12,25 @@ public class CrudCargoServicec {
 
     @Autowired
     private CargoRepository repository;
+    private Boolean system = true;
 
     public void inicial(Scanner sc) {
-        salvar(sc);
+        while (system) {
+            System.out.println("Qual a ação deseja executar?");
+            System.out.println("0 - Sair");
+            System.out.println("1 - Salvar");
+            System.out.println("2 - Atualizar");
+
+            int acao = sc.nextInt();
+
+            switch (acao) {
+                case 1 -> salvar(sc);
+                case 2 -> atualizar(sc);
+                default -> system = false;
+            }
+
+        }
+
     }
 
     private void salvar(Scanner sc) {
@@ -26,6 +42,18 @@ public class CrudCargoServicec {
 
         repository.save(cargo);
         System.out.println("Salvo!");
+    }
+
+    private void atualizar (Scanner sc) {
+        System.out.println("Id do cargo");
+        int id = sc.nextInt();
+        System.out.println("Nova descrição do cargo");
+        String descricao = sc.next();
+
+        Cargo cargo = new Cargo(id,descricao);
+        repository.save(cargo);
+        System.out.println("Salvo!");
+
     }
 
 }
