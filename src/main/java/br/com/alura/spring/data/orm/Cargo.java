@@ -1,44 +1,37 @@
 package br.com.alura.spring.data.orm;
 
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cargos")
 public class Cargo {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String descricao;
+	@OneToMany(mappedBy = "cargo")
+	private List<Funcionario> funcionario;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String descricao;
+	public Integer getId() {
+		return id;
+	}
 
-    public Cargo(Integer id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Cargo() {}
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Override
+	public String toString() {
+		return "Cargo [id=" + id + ", descricao=" + descricao + "]";
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    @Override
-    public String toString() {
-        return "Cargo{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                '}';
-    }
 }

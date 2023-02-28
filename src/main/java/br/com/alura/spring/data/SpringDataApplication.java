@@ -1,24 +1,35 @@
 package br.com.alura.spring.data;
 
-import br.com.alura.spring.data.orm.Cargo;
-import br.com.alura.spring.data.repository.CargoRepository;
-import br.com.alura.spring.data.service.CrudCargoServicec;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Scanner;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Scanner;
+import br.com.alura.spring.data.service.CrudCargoService;
+import br.com.alura.spring.data.service.CrudFuncionarioService;
+import br.com.alura.spring.data.service.CrudUnidadeTrabalhoService;
 
-//anotação que faz o com que o spring percorra nas anotações do projeto
+@EnableJpaRepositories
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
-	@Autowired
-	private CrudCargoServicec service;
+	private Boolean system = true;
 
-	private boolean system = true;
+	private final CrudCargoService cargoService;
 
+	private final CrudFuncionarioService funcionarioService;
+
+	private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
+
+	public SpringDataApplication(CrudCargoService cargoService,
+			CrudFuncionarioService funcionarioService, 
+			CrudUnidadeTrabalhoService unidadeTrabalhoService) {
+		this.cargoService = cargoService;
+		this.funcionarioService = funcionarioService;
+		this.unidadeTrabalhoService = unidadeTrabalhoService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDataApplication.class, args);
@@ -26,18 +37,32 @@ public class SpringDataApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 
-		while(system) {
-			System.out.println("Qual a ação executar?");
+		while (system) {
+			System.out.println("Qual função deseja executar?");
 			System.out.println("0 - Sair");
 			System.out.println("1 - Cargo");
+			System.out.println("2 - Funcionario");
+			System.out.println("3 - Unidade");
+			
+			Integer function = scanner.nextInt();
 
-			int action = sc.nextInt();
-			if (action == 1) service.inicial(sc);
-			system = false;
+			switch (function) {
+				case 1:
+					cargoService.inicial(scanner);
+					break;
+				case 2:
+					funcionarioService.inicial(scanner);
+					break;
+				case 3:
+					unidadeTrabalhoService.inicial(scanner);
+					break;
+				default:
+					System.out.println("Finalizando");
+					system = false;
+					break;
+			}
 		}
 	}
-
-
 }
