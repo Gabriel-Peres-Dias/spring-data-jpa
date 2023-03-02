@@ -77,6 +77,6 @@ public class RelatoriosService {
 
     private void buscarIdNomeSalario() {
         List<FuncionarioProjecao> funcionarios = repository.findFuncionarioSalario();
-        funcionarios.forEach(f -> System.out.println("ID: " + f.getId() + " NOME: " + f.getNome() + " SALARIO: " + f.getSalario()));
+        funcionarios.forEach(f -> System.out.println("Funcionario: ID: " + f.getId() + " NOME: " + f.getNome() + " SALARIO: " + f.getSalario()));
     }
 }
