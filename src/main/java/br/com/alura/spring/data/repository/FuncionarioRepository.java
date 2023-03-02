@@ -28,6 +28,6 @@ public interface FuncionarioRepository extends CrudRepository<Funcionario, Integ
     List<Funcionario> findDataContratacaoMaior(LocalDate data);
 
     //projeção, entidades que contem apenas os atributos que queremos
-    @Query(value = "SELECT f.id, f.nome, f.salario FROM funcioniarios f", nativeQuery = true)
+    @Query(value = "SELECT f.id, f.nome, f.salario FROM funcionarios f", nativeQuery = true)
     List<FuncionarioProjecao> findFuncionarioSalario();
 }
