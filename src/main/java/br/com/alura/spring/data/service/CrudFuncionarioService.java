@@ -48,23 +48,13 @@ public class CrudFuncionarioService {
 			System.out.println("4 - Deletar");
 			
 			int action = scanner.nextInt();
-			
+
 			switch (action) {
-			case 1:
-				salvar(scanner);
-				break;
-			case 2:
-				atualizar(scanner);
-				break;
-			case 3:
-				visualizar(scanner);
-				break;
-			case 4:
-				deletar(scanner);
-				break;
-			default:
-				system = false;
-				break;
+				case 1 -> salvar(scanner);
+				case 2 -> atualizar(scanner);
+				case 3 -> visualizar(scanner);
+				case 4 -> deletar(scanner);
+				default -> system = false;
 			}
 			
 		}
@@ -162,7 +152,7 @@ public class CrudFuncionarioService {
 		System.out.println(funcionarios);
 		System.out.println("Página atual " + funcionarios.getNumber());
 		System.out.println("Quantidade total de resultados da consulta " + funcionarios.getTotalElements());
-		funcionarios.forEach(funcionario -> System.out.println(funcionario));
+		funcionarios.forEach(System.out::println);
 	}
 	
 	private void deletar(Scanner scanner) {
